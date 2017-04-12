@@ -728,6 +728,37 @@
   "Outputs": {
     "ApiId": {
       "Value": {"Ref": "RestApi"}
+    },
+    "LambdaArn":{
+         "Description":"Lambda Function Arn",
+         "Value":{
+            "Fn::GetAtt":[
+               "Lambda",
+               "Arn"
+            ]
+         }
+    },
+      
+    "AWSGatewayRestURL":{
+        "Description":"Aws API Gateway End Point URL",
+        "Value":{
+            "Fn::Join":[
+               "",
+               [
+                  "https://",
+                  {"Ref": "RestApi"},
+                  ".execute-api.us-east-2.amazonaws.com/v1"
+               ]
+            ]
+        }
+    },
+	"S3Bucket" : {
+      "Value" : { "Fn::Join" : [ "", [ {"Ref": "S3Bucket"} ] ] },
+      "Description" : "Name of S3 bucket to hold website content"
+    },
+	"LambdaFunctionLocation" : {
+      "Value" : { "Fn::Join" : [ "", [ "https://", {"Ref": "S3Bucket"},"/",{"Ref": "S3Key"} ] ] },
+      "Description" : "Name of S3 bucket to hold website content"
     }
   }
 }
